@@ -30,7 +30,7 @@ buildPythonPackage rec {
   preUnpack = ''
     mkdir -p dist
     tar --strip-components=2 -xf "$src" --directory=dist \
-      "TensorRT-${version}/python/tensorrt-${version}-cp${pyVersion}-none-linux_x86_64.whl"
+      "TensorRT-${version}/python/tensorrt-8.6.1-cp${pyVersion}-none-linux_x86_64.whl"
   '';
 
   sourceRoot = ".";
