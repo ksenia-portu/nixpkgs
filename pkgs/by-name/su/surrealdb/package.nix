@@ -16,16 +16,16 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "surrealdb";
-  version = "1.5.3";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "surrealdb";
     repo = "surrealdb";
     rev = "v${version}";
-    hash = "sha256-lRXQq834KYDW/ugpFudrmSDPlzBaGDuS/pC2riElF04=";
+    hash = "sha256-JFkTD/MGvak8EuDEABGH1xLykSNj4rtnnENAruls6W8=";
   };
 
-  cargoHash = "sha256-XQu1I4ufQZKpeDBTb13g2vECmdWAGRckQjWz8BbHMHA=";
+  cargoHash = "sha256-N/4VHvBA9ij+VLPxJ+1237fnOHGoC6guZ62CYrwfHM4=";
 
   # error: linker `aarch64-linux-gnu-gcc` not found
   postPatch = ''
@@ -69,6 +69,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://surrealdb.com/";
     mainProgram = "surreal";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ sikmir happysalada ];
+    maintainers = with maintainers; [ sikmir happysalada siriobalmelli ];
   };
 }

@@ -5,10 +5,9 @@
   beautifulsoup4,
   buildPythonPackage,
   click,
-  fetchPypi,
+  fetchFromGitHub,
   pytest-xdist,
   pytestCheckHook,
-  pythonAtLeast,
   pythonOlder,
   requests,
   saneyaml,
@@ -18,21 +17,23 @@
 
 buildPythonPackage rec {
   pname = "commoncode";
-  version = "31.0.3";
-  format = "pyproject";
+  version = "32.0.0";
+  pyproject = true;
 
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.8";
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-ura55/m/iesqN6kSYmdHB1sbthSHXaFWiQ76wVmyl0E=";
+  src = fetchFromGitHub {
+    owner = "nexB";
+    repo = "commoncode";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-yqvsBJHrxVkSqp3QnYmHDJr3sef/g4pkSlkSioYuOc4=";
   };
 
   dontConfigure = true;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  build-system = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     attrs
     beautifulsoup4
     click
@@ -62,11 +63,6 @@ buildPythonPackage rec {
       "test_searchable_paths"
     ];
 
-  disabledTestPaths = lib.optionals (pythonAtLeast "3.10") [
-    # https://github.com/nexB/commoncode/issues/36
-    "src/commoncode/fetch.py"
-  ];
-
   pythonImportsCheck = [ "commoncode" ];
 
   meta = with lib; {
@@ -74,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nexB/commoncode";
     changelog = "https://github.com/nexB/commoncode/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = [ ];
   };
 }

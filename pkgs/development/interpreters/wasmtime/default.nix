@@ -1,20 +1,20 @@
-{ rustPlatform, rustfmt, fetchFromGitHub, Security, lib, stdenv }:
+{ lib, rustPlatform, cmake, rustfmt, fetchFromGitHub, Security, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wasmtime";
-  version = "21.0.1";
+  version = "24.0.0";
 
   src = fetchFromGitHub {
     owner = "bytecodealliance";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-KmxjZZC31n1gtuT89sc9Tpo9hmDivA8p4YK1L0/HFoM=";
+    hash = "sha256-pR6yjJf0szjB73+vqXT4d8P9WD+SIOkEOe4Wl6EgIqQ=";
     fetchSubmodules = true;
   };
 
   # Disable cargo-auditable until https://github.com/rust-secure-code/cargo-auditable/issues/124 is solved.
   auditable = false;
-  cargoHash = "sha256-TSk3EljqUdSydXUdRftWar9Ss81N/WMNvSTvM0JUk98=";
+  cargoHash = "sha256-bZtBEmzmu63wNlGhYvN0gYKkLPxzBHZ1iO16BMPD3tE=";
   cargoBuildFlags = [ "--package" "wasmtime-cli" "--package" "wasmtime-c-api" ];
 
   outputs = [ "out" "dev" ];
@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   #   warning: cranelift-codegen@0.108.0:
   #   Failed to run `rustfmt` on ISLE-generated code: Os
   #   { code: 2, kind: NotFound, message: "No such file or directory" }
-  nativeBuildInputs = [ rustfmt ];
+  nativeBuildInputs = [ cmake rustfmt ];
 
   doCheck = with stdenv.buildPlatform;
     # SIMD tests are only executed on platforms that support all

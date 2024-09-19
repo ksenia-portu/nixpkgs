@@ -5,17 +5,18 @@
   pkg-config,
   pixman,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hyprutils";
-  version = "0.1.4";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "hyprwm";
     repo = "hyprutils";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-CqRZne63BpYlPd/i8lXV0UInUt59oKogiwdVtBRHt60=";
+    hash = "sha256-D3wIZlBNh7LuZ0NaoCpY/Pvu+xHxIVtSN+KkWZYvvVs=";
   };
 
   nativeBuildInputs = [
@@ -30,6 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
   outputs = ["out" "dev"];
 
   cmakeBuildType = "RelWithDebInfo";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     homepage = "https://github.com/hyprwm/hyprutils";

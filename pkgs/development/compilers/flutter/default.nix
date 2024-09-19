@@ -8,6 +8,8 @@ let
   mkFlutter =
     { version
     , engineVersion
+    , engineSwiftShaderHash
+    , engineSwiftShaderRev
     , engineHashes
     , enginePatches
     , dartVersion
@@ -20,7 +22,7 @@ let
     }@fargs:
     let
       args = {
-        inherit version engineVersion engineHashes enginePatches patches pubspecLock artifactHashes useNixpkgsEngine channel;
+        inherit version engineVersion engineSwiftShaderRev engineSwiftShaderHash engineHashes enginePatches patches pubspecLock artifactHashes useNixpkgsEngine channel;
 
         dart = dart.override {
           version = dartVersion;
@@ -54,7 +56,7 @@ let
     (mkCustomFlutter args).overrideAttrs (prev: next: {
       passthru = next.passthru // rec {
         inherit wrapFlutter mkCustomFlutter mkFlutter;
-        buildFlutterApplication = callPackage ../../../build-support/flutter { flutter = wrapFlutter (mkCustomFlutter args); };
+        buildFlutterApplication = callPackage ./build-support/build-flutter-application.nix { flutter = wrapFlutter (mkCustomFlutter args); };
       };
     });
 

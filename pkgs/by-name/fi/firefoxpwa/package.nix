@@ -8,15 +8,18 @@
   rustPlatform,
 
   cups,
+  ffmpeg,
   firefox-unwrapped,
   libcanberra-gtk3,
   libglvnd,
   libnotify,
+  libpulseaudio,
   libva,
   mesa,
   nixosTests,
   openssl,
   pciutils,
+  pipewire,
   pkg-config,
   stdenv,
   udev,
@@ -25,13 +28,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "firefoxpwa";
-  version = "2.12.1";
+  version = "2.12.4";
 
   src = fetchFromGitHub {
     owner = "filips123";
     repo = "PWAsForFirefox";
     rev = "v${version}";
-    hash = "sha256-0Yyd0mJK/eDallg9ERimvZIRCOTeDkzeAVUfDeNP928=";
+    hash = "sha256-VNCQUF/Xep/PkrNd9Mzbm3NWPToqXpJM6SzDoqBXbNY=";
   };
 
   sourceRoot = "${src.name}/native";
@@ -68,11 +71,14 @@ rustPlatform.buildRustPackage rec {
       libs =
         lib.optionals stdenv.isLinux [
           cups
+          ffmpeg
           libglvnd
           libnotify
+          libpulseaudio
           libva
           mesa
           pciutils
+          pipewire
           udev
           xorg.libXScrnSaver
         ]

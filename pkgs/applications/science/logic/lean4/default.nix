@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lean4";
-  version = "4.8.0";
+  version = "4.9.1";
 
   src = fetchFromGitHub {
     owner = "leanprover";
     repo = "lean4";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-R75RrAQb/tRTtMvy/ddLl1KQaA7V71nocvjIS9geMrg=";
+    hash = "sha256-C3N56f3mT+5f149T1BIYQil2UleAWmnRYLqUq4zcLgs=";
   };
 
   postPatch = ''
@@ -53,6 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests = {
     version = testers.testVersion {
       package = finalAttrs.finalPackage;
+      version = "v${finalAttrs.version}";
     };
   };
 
@@ -62,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/leanprover/lean4/blob/${finalAttrs.src.rev}/RELEASES.md";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ danielbritten ];
     mainProgram = "lean";
   };
 })

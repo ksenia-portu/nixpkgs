@@ -16,16 +16,19 @@
   zlib,
   libSM,
   libICE,
+  stb,
+  openssl,
 }:
 
 stdenv.mkDerivation rec {
   pname = "lms";
-  version = "3.51.1";
+  version = "3.57.0";
+
   src = fetchFromGitHub {
     owner = "epoupon";
     repo = "lms";
     rev = "v${version}";
-    hash = "sha256-5lEbrB218EVVHIzo1efvQYybut2OpfDKpLlRs0brhXg=";
+    hash = "sha256-KeskFVTZMxsFefbjnRBfrbS88Wt+2kwzboDziBsZJrY=";
   };
 
   strictDeps = true;
@@ -46,6 +49,8 @@ stdenv.mkDerivation rec {
     zlib
     libSM
     libICE
+    stb
+    openssl
   ];
 
   postPatch = ''
@@ -75,12 +80,12 @@ stdenv.mkDerivation rec {
       --prefix LD_LIBRARY_PATH : "${lib.strings.makeLibraryPath [libSM libICE]}"
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/epoupon/lms";
     description = "Lightweight Music Server - Access your self-hosted music using a web interface";
-    license = licenses.gpl3Plus;
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    platforms = lib.platforms.linux;
     mainProgram = "lms";
-    maintainers = with maintainers; [ mksafavi ];
+    maintainers = with lib.maintainers; [ mksafavi ];
   };
 }

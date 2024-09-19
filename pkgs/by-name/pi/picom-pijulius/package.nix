@@ -4,20 +4,22 @@
   writeShellScript,
   fetchFromGitHub,
   pcre,
+  asciidoctor,
   unstableGitUpdater
 }:
 picom.overrideAttrs (previousAttrs: {
   pname = "picom-pijulius";
-  version = "8.2-unstable-2024-06-13";
+  version = "8.2-unstable-2024-09-08";
 
   src = fetchFromGitHub {
     owner = "pijulius";
     repo = "picom";
-    rev = "a0e818855daba0d2f11a298f7fd238f8a6049167";
-    hash = "sha256-w1SWYhPfFGX2EumEe8UBZA3atW4jvW54GsMYLGg59Ys=";
+    rev = "c7f7d6ed3858ca507ed8abd057d1039fc889940a";
+    hash = "sha256-LRUU516bfiN06mqLY7CWtrUmRubQ/ysPtciUNd/qGhA=";
   };
 
   buildInputs = (previousAttrs.buildInputs or [ ]) ++ [ pcre ];
+  nativeBuildInputs = (previousAttrs.nativeBuildInputs or [ ]) ++ [ asciidoctor ];
 
   meta = {
     inherit (previousAttrs.meta)

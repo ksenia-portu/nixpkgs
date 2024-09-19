@@ -3,8 +3,12 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
+
+  # build-system
   hatchling,
   hatch-vcs,
+
+  # dependencies
   aiohttp,
   awkward,
   cachetools,
@@ -28,14 +32,18 @@
   toml,
   tqdm,
   uproot,
+  vector,
+
+  # checks
   distributed,
   pyinstrument,
   pytestCheckHook,
+  pytest-xdist,
 }:
 
 buildPythonPackage rec {
   pname = "coffea";
-  version = "2024.6.0";
+  version = "2024.8.3";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
@@ -44,7 +52,7 @@ buildPythonPackage rec {
     owner = "CoffeaTeam";
     repo = "coffea";
     rev = "refs/tags/v${version}";
-    hash = "sha256-MnAGtoev20Cn1WUmX8imUNQCJftU4jw+hInYI7dhb4M=";
+    hash = "sha256-aOe1U0IWQIgTJgUAs6WZWQmYnOTzdS+hRlK9QgU3qqk=";
   };
 
   build-system = [
@@ -76,12 +84,14 @@ buildPythonPackage rec {
     toml
     tqdm
     uproot
+    vector
   ] ++ dask.optional-dependencies.array;
 
   nativeCheckInputs = [
     distributed
     pyinstrument
     pytestCheckHook
+    pytest-xdist
   ];
 
   pythonImportsCheck = [ "coffea" ];

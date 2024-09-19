@@ -50,20 +50,15 @@ let
 in
 buildPythonPackage rec {
   pname = "pybind11";
-  version = "2.12.0";
+  version = "2.13.5";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pybind";
     repo = "pybind11";
     rev = "v${version}";
-    hash = "sha256-DVkI5NxM5uME9m3PFYVpJOOa2j+yjL6AJn76fCTv2nE=";
+    hash = "sha256-cpxhrTFihA+gWmX62a+EQF3lccUyvu+d1MU2IC/CN6Q=";
   };
-
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace-fail "timeout=300" ""
-  '';
 
   build-system = [
     cmake

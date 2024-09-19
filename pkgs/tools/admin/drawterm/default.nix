@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation {
   pname = "drawterm";
-  version = "0-unstable-2024-05-23";
+  version = "0-unstable-2024-09-08";
 
   src = fetchFrom9Front {
     owner = "plan9front";
     repo = "drawterm";
-    rev = "8391a9e364622cb7d85e128b427fb96c75e18265";
-    hash = "sha256-YHko0lCCn7SydnKbepZpt4Ua6NdvuPD3Y3ZQ1Ysb0+g=";
+    rev = "877bce095a192ead0e9b6e0d5ce3071482cf0f6e";
+    hash = "sha256-s1l7IyWRzaBTtoj71W+Ubmcigw4w7Ypf1Yg44vxN2Qg=";
   };
 
   enableParallelBuilding = true;
